@@ -130,6 +130,134 @@
           }
         }
       }
+    },
+    "ticket": {
+      "root": "projects/ticket/",
+      "sourceRoot": "projects/ticket/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ticket",
+            "index": "projects/ticket/src/index.html",
+            "main": "projects/ticket/src/main.ts",
+            "polyfills": "projects/ticket/src/polyfills.ts",
+            "tsConfig": "projects/ticket/tsconfig.app.json",
+            "assets": [
+              "projects/ticket/src/favicon.ico",
+              "projects/ticket/src/assets"
+            ],
+            "styles": [
+              "projects/ticket/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ticket/src/environments/environment.ts",
+                  "with": "projects/ticket/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ticket:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ticket:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ticket:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ticket/src/test.ts",
+            "polyfills": "projects/ticket/src/polyfills.ts",
+            "tsConfig": "projects/ticket/tsconfig.spec.json",
+            "karmaConfig": "projects/ticket/karma.conf.js",
+            "styles": [
+              "projects/ticket/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ticket/src/favicon.ico",
+              "projects/ticket/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ticket/tsconfig.app.json",
+              "projects/ticket/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ticket-e2e": {
+      "root": "projects/ticket-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ticket-e2e/protractor.conf.js",
+            "devServerTarget": "ticket:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ticket:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ticket-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ticket-ui"
